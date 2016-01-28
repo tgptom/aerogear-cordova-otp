@@ -50,12 +50,14 @@
      * @param callback called on success with the result
      */
     AeroGear.Totp.prototype.scanSecret = function (callback) {
-        cordova.plugins.barcodeScanner.scan(function(result) {
-            if (!result.cancelled) {
-                var secret = gup(result.text, 'secret');
-                callback(secret);
-            }
-        });
+		if (cordova.plugins.barcodeScanner){
+			cordova.plugins.barcodeScanner.scan(function(result) {
+				if (!result.cancelled) {
+					var secret = gup(result.text, 'secret');
+					callback(secret);
+				}
+			});
+		}
     }
 
     /**
